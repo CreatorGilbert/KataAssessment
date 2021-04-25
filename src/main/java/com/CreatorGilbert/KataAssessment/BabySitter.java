@@ -7,16 +7,29 @@ public class BabySitter {
     public BabySitter() {
     }
 
-    public boolean startTimeVerification(int startTime) {
-        return (startTime <= THREEAM && startTime >= FIVEPM);
+    public boolean startTimeVerification(int startTime) throws OutOfBoundsException {
+        boolean isValid = (startTime <= THREEAM && startTime >= FIVEPM);
+        if (!isValid)
+            throw new OutOfBoundsException("The start time wasn't valid, needs to be 5PM-3AM.");
+        return isValid;
     }
 
-    public boolean endTimeVerification(int endTime) {
-        return (endTime <= FOURAM && endTime >= SIXPM);
+    public boolean endTimeVerification(int endTime) throws OutOfBoundsException {
+        boolean isValid = (endTime <= FOURAM && endTime >= SIXPM);
+        if (!isValid)
+            throw new OutOfBoundsException("The end time wasn't valid, needs to be 6PM-4AM.");
+        return isValid;
     }
 
     public boolean bedtimeVerification(int bedtime) {
         return (bedtime <= FOURAM && bedtime >= FIVEPM);
+    }
+
+    public boolean checkStartBeforeEnd(SetTimes times) throws OutOfBoundsException {
+        boolean isValid = times.getStartTime() < times.getEndTime();
+        if (!isValid)
+            throw new OutOfBoundsException("Start time was not set before end time.");
+        return isValid;
     }
 
     public int getRegularRateCost(SetTimes times) {
@@ -62,7 +75,7 @@ public class BabySitter {
     }
 
     public int getTotalCost(SetTimes times) {
-        int total = getRegularRateCost(times) + getAsleepRateCost(times) + getLateRateCost(times);
+        int total = this.getRegularRateCost(times) + this.getAsleepRateCost(times) + this.getLateRateCost(times);
         return total;
     }
 
