@@ -21,7 +21,7 @@ class SetTimes {
         return isValid;
     }
 
-    public int transformTime(int time, boolean isPM) throws OutOfBoundsException {
+    private int transformTime(int time, boolean isPM) throws OutOfBoundsException {
         int ans = 0;
         if (isGivenTimeValid(time, isPM)) {
             if (isPM) {
